@@ -2,13 +2,17 @@
 package com.shosha.springboot.demo.errorhandling.model.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.Objects;
 @Slf4j
 @Component
+@Getter
+@Setter
 public class StudentDto {
     @NonNull
     @Size(min = 2, max = 30, message = "Name is required and should be between 2 and 30 characters")
@@ -41,30 +45,6 @@ public class StudentDto {
         if (Objects.nonNull(addressDto)) {
             log.info("Setter inject completely ");
         }
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public AddressDto getAddress() {
