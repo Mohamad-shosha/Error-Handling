@@ -94,11 +94,12 @@ public class AddressDto {
 
     @Override
     public String toString() {
-        return "Address{" +
+        return "AddressDto{" +
                 "country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
                 ", buildingNumber=" + buildingNumber +
+                ", zipcode='" + zipcode + '\'' +
                 '}';
     }
 }

@@ -7,6 +7,9 @@ public class BuilderTest {
         AddressDto addressDto =  AddressDto.builder()
                 .setCountry("Egypt")
                 .setCity("cairo")
+                .setBuildingNumber(6)
+                .setStreet("Elkhateeb")
+                .setZipcode("12654")
                 .build();
         System.out.println(addressDto);
     }
