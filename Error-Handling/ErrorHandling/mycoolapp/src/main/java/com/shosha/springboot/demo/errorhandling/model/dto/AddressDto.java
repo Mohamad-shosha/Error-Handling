@@ -3,12 +3,14 @@ package com.shosha.springboot.demo.errorhandling.model.dto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 @NoArgsConstructor
 @Component
+@Data
 public class AddressDto {
     @NotBlank(message = "Country is required")
     @Size(min = 2, max = 50, message = "Country must be between 2 and 50 characters")

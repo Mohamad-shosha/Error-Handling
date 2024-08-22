@@ -8,13 +8,13 @@ import java.sql.Timestamp;
 
 @EqualsAndHashCode(callSuper = true)
 @Value
-public class IsEmpty extends RuntimeException {
+public class IsEmptyException extends RuntimeException {
      Integer code = 525;
      String message;
      String description;
      Timestamp currentTime;
 
-    public IsEmpty(String message, String description) {
+    public IsEmptyException(String message, String description) {
         this.message = message;
         this.description = description;
         this.currentTime = TimingUtilities.timestamp();

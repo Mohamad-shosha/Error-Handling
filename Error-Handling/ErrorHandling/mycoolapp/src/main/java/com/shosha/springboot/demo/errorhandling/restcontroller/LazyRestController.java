@@ -26,7 +26,7 @@ public class LazyRestController {
 
     @GetMapping("/GetStudent/{id}")
     public StudentDto getStudent(@PathVariable(value = "id") String key) {
-        return dbConnectionWithLazyImpl.findStudentById(key);
+        return dbConnectionWithLazyImpl.getStudentById(key);
     }
 
     @GetMapping("/GetStudents")
