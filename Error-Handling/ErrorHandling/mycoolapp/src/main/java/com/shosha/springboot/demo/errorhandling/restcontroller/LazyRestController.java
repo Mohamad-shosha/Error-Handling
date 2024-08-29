@@ -26,7 +26,7 @@ public class LazyRestController {
 
     @GetMapping("/GetStudent/{id}")
     public StudentDto getStudent(@PathVariable(value = "id") String key) {
-        return dbConnectionWithLazyImpl.getStudentById(key);
+        return dbConnectionWithLazyImpl.findAndGetStudentById(key);
     }
 
     @GetMapping("/GetStudents")
@@ -36,12 +36,12 @@ public class LazyRestController {
 
     @PutMapping("/UpdateStudent/{id}")
     public void updateStudent(@Valid @RequestBody StudentDto studentDto, @PathVariable(value = "id") String key) {
-        dbConnectionWithLazyImpl.updateStudent(key,studentDto);
+        dbConnectionWithLazyImpl.findAndUpdateStudent(key,studentDto);
     }
 
     @DeleteMapping("/DeleteStudent")
     public void deleteStudent(@RequestParam(value = "id") String key) {
-        dbConnectionWithLazyImpl.deleteStudentById(key);
+        dbConnectionWithLazyImpl.findAndDeleteStudentById(key);
     }
 
     @DeleteMapping("/DeleteStudentMap")

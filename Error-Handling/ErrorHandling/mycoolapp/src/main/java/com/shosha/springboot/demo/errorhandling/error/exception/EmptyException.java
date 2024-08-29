@@ -6,15 +6,15 @@ import lombok.Value;
 
 import java.sql.Timestamp;
 
-@EqualsAndHashCode(callSuper = true)
 @Value
-public class IsEmptyException extends RuntimeException {
+@EqualsAndHashCode(callSuper = true)
+public class EmptyException extends RuntimeException {
      Integer code = 525;
      String message;
      String description;
      Timestamp currentTime;
 
-    public IsEmptyException(String message, String description) {
+    public EmptyException(String message, String description) {
         this.message = message;
         this.description = description;
         this.currentTime = TimingUtilities.timestamp();

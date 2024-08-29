@@ -12,6 +12,7 @@ import java.util.Objects;
 @Slf4j
 @Data
 @Component
+@NoArgsConstructor
 @AllArgsConstructor
 public class Student {
     private String id ;
@@ -28,6 +29,5 @@ public class Student {
             log.info("Setter inject completely ");
         }
     }
-
 
 }

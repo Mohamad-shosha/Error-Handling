@@ -1,6 +1,7 @@
 package com.shosha.springboot.demo.errorhandling.service;
 
-import com.shosha.springboot.demo.errorhandling.error.exception.IsEmptyException;
+import com.shosha.springboot.demo.errorhandling.error.exception.EmptyException;
+import com.shosha.springboot.demo.errorhandling.error.exception.StudentExistException;
 import com.shosha.springboot.demo.errorhandling.error.exception.StudentNotFoundException;
 import com.shosha.springboot.demo.errorhandling.model.dto.StudentDto;
 import com.shosha.springboot.demo.errorhandling.model.entity.Student;
@@ -28,6 +29,18 @@ public class DbConnectionWithLazyImpl implements DbConnectionService {
     @Override
     public void addStudent(StudentDto studentDto) {
         String id = UUID.randomUUID().toString();
+        studentRepository.getStudents().forEach(student -> {
+            boolean emailExists = student.getEmail().equals(studentDto.getEmail());
+            boolean phoneExists = student.getPhoneNumber().equals(studentDto.getPhoneNumber());
+            boolean addressExists = student.getAddressDto().equals(studentDto.getAddressDto());
+
+            if (emailExists || phoneExists || addressExists) {
+                String message = emailExists ? "The Student with this email already exists" :
+                        phoneExists ? "The Student with phone number already exists" :
+                                "The Student with address already exists";
+                throw new StudentExistException(message);
+            }
+        });
         Student student = new Student(id, studentDto.getName(), studentDto.getEmail(),
                 studentDto.getAge(), studentDto.getPhoneNumber(), studentDto.getAddressDto());
         studentRepository.insertStudent(student);
@@ -63,14 +76,14 @@ public class DbConnectionWithLazyImpl implements DbConnectionService {
     }
 
     @Override
-    public StudentDto getStudentById(String id) throws StudentNotFoundException {
+    public StudentDto findAndGetStudentById(String id) throws StudentNotFoundException {
         Student student = findStudentById(id);
         return new StudentDto(student.getName(), student.getEmail(),
                 student.getAge(), student.getPhoneNumber(), student.getAddressDto());
     }
 
     @Override
-    public void updateStudent(String id, StudentDto updatedStudent) {
+    public void findAndUpdateStudent(String id, StudentDto updatedStudent) {
         Student student = findStudentById(id);
         student.setName(updatedStudent.getName());
         student.setEmail(updatedStudent.getEmail());
@@ -80,7 +93,7 @@ public class DbConnectionWithLazyImpl implements DbConnectionService {
     }
 
     @Override
-    public void deleteStudentById(String id) {
+    public void findAndDeleteStudentById(String id) {
         Student student = findStudentById(id);
         studentRepository.deleteStudentById(id);
     }
@@ -91,11 +104,11 @@ public class DbConnectionWithLazyImpl implements DbConnectionService {
     }
 
     @Override
-    public void clear() throws IsEmptyException {
+    public void clear() throws EmptyException {
         if (studentRepository.countStudents() > 0) {
             studentRepository.clear();
         } else {
-            throw new IsEmptyException("No items to delete", "The map is empty");
+            throw new EmptyException("No items to delete", "The map is empty");
         }
     }
 
