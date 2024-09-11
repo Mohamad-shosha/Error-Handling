@@ -17,7 +17,7 @@ import java.util.UUID;
 @Slf4j
 @Component
 @Primary
-public class DbConnectionWithLazyImpl implements DbConnectionService {
+public class  DbConnectionWithLazyImpl implements DbConnectionService {
     private static DbConnectionWithLazyImpl instance;
     private final StudentRepository studentRepository;
     private final String className = StudentRepository.class.getSimpleName();
